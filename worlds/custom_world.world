@@ -1,0 +1,131 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="custom_world">
+
+    <!-- Include the ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Include a light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- A few box-shaped obstacles -->
+    <model name="obstacle1">
+      <static>true</static>
+      <link name="link">
+        <pose>2 2 0.5 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.8 0.1 0.1 1</ambient>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="obstacle2">
+      <static>true</static>
+      <link name="link">
+        <pose>-2 -3 0.5 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1.5 0.5 1</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>1.5 0.5 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.1 0.1 0.8 1</ambient>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="obstacle3">
+      <static>true</static>
+      <link name="link">
+        <pose>0 -4 0.25 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.3</radius>
+              <length>0.5</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.3</radius>
+              <length>0.5</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.1 0.8 0.1 1</ambient>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <plugin filename="EntityContextMenuPlugin" name="Entity context menu">
+    <gz-gui>
+        <property key="state" type="string">floating</property>
+        <property key="width" type="double">5</property>
+        <property key="height" type="double">5</property>
+        <property key="showTitleBar" type="bool">false</property>
+    </gz-gui>
+</plugin>
+<!-- <plugin filename="GzSceneManager" name="Scene Manager">
+    <gz-gui>
+        <property key="resizable" type="bool">false</property>
+        <property key="width" type="double">5</property>
+        <property key="height" type="double">5</property>
+        <property key="state" type="string">floating</property>
+        <property key="showTitleBar" type="bool">false</property>
+    </gz-gui>
+</plugin>
+<plugin filename="InteractiveViewControl" name="Interactive view control">
+    <gz-gui>
+        <property key="resizable" type="bool">false</property>
+        <property key="width" type="double">5</property>
+        <property key="height" type="double">5</property>
+        <property key="state" type="string">floating</property>
+        <property key="showTitleBar" type="bool">false</property>
+    </gz-gui>
+</plugin>
+<plugin filename="CameraTracking" name="Camera Tracking">
+    <gz-gui>
+        <property key="resizable" type="bool">false</property>
+        <property key="width" type="double">5</property>
+        <property key="height" type="double">5</property>
+        <property key="state" type="string">floating</property>
+        <property key="showTitleBar" type="bool">false</property>
+    </gz-gui>
+</plugin>
+
+<plugin filename="gz-gui-image-display-system" name="gz::gui::ImageDisplay">
+    <title>Raspi Cam</title>
+    <topic>rpi_camera</topic>
+</plugin> -->
+
+  </world>
+</sdf>

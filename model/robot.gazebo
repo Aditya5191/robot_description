@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<robot>
+<gazebo reference="body_link">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Red</material>
+</gazebo>
+<gazebo reference="wheel1_link">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Yellow</material>
+</gazebo>
+<gazebo reference="wheel2_link">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Yellow</material>
+</gazebo><gazebo reference="caster_link">
+    <mu1>0.000002</mu1>
+    <mu2>0.000002</mu2>
+    <material>Gazebo/Black</material>
+</gazebo>
+
+<gazebo>
+<plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+   
+    <!--Wheels-->
+    <right_joint>wheel1_joint</right_joint>
+    <left_joint>wheel2_joint</left_joint>
+
+    <!--Kinematics-->
+    <wheel_Separation>${2*s4}</wheel_Separation>
+    <wheel_diameter>${2*r}</wheel_diameter>
+
+    <!--limits-->
+    <max_linear_acceleration>10</max_linear_acceleration>
+    
+    <!--topic,frames,odometry-->
+    <topic>cmd_vel</topic>
+    <tf_topic>tf</tf_topic>
+    <odom_topic>odom</odom_topic>
+    <frame_id>odom</frame_id>
+    <child_frame_id>base_footprint</child_frame_id>
+    <odom_publisher_frequency>30</odom_publisher_frequency>
+</plugin>
+
+<!--joint state publisher-->
+<plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
+    <topic>joint_states</topic><!-- from <ros><remappings> -->
+    <joint_name>wheel1_joint</joint_name>
+    <joint_name>wheel2_joint</joint_name>
+</plugin>
+</gazebo>
+
+
+<gazebo reference="camera_link">
+  <sensor name="camera" type="camera">
+    <camera>
+      <!-- Approx. Pi Camera FOV (53.5°) -->
+      <horizontal_fov>0.935</horizontal_fov>
+
+      <!-- Optional: High-res 5MP mode (can reduce to 1280x720 if too heavy) -->
+      <image>
+        <width>2592</width>
+        <height>1944</height>
+        <format>R8G8B8</format>
+      </image>
+
+      <clip>
+        <near>0.1</near>
+        <far>15</far>
+      </clip>
+
+      <noise>
+        <type>gaussian</type>
+        <mean>0.0</mean>
+        <stddev>0.007</stddev>
+      </noise>
+
+      <optical_frame_id>camera_link_optical</optical_frame_id>
+      <camera_info_topic>/camera_info</camera_info_topic>
+    </camera>
+
+    <always_on>1</always_on>
+    <update_rate>30</update_rate>
+    <visualize>true</visualize>
+    <topic>camera/image</topic>
+
+    <!-- ✅ Working plugin for gz sim -->
+    <plugin filename="gz-sim-sensors-system" 
+            name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+  </sensor>
+</gazebo>
+
+
+
+</robot>
